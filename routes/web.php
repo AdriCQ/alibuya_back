@@ -1,6 +1,8 @@
 <?php
 
+use App\Mail\OrderShipped;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,11 +17,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
+});
+Route::get('/test', function () {
+	Mail::to("adrian.capote95@zoho.com")->send(new OrderShipped());
 });
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
+	$request->fulfill();
 
-    return redirect('/');
+	return redirect('/');
 })->middleware(['auth', 'signed'])->name('verification.verify');
