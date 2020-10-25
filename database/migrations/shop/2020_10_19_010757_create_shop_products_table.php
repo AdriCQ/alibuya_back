@@ -18,6 +18,8 @@ class CreateShopProductsTable extends Migration
 			$table->foreignId('vendor_id')->constrained('shop_vendors')->cascadeOnDelete();
 			// Basic
 			$table->string('title', 50);
+			$table->string('brand')->nullable();
+			$table->unsignedDecimal('tax')->default(0);
 			// JSON
 			$table->string('description')->nullable();
 			$table->foreignId('img_id')->constrained('shop_images')->cascadeOnDelete();

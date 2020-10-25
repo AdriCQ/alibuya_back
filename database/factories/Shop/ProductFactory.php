@@ -29,13 +29,15 @@ class ProductFactory extends Factory
 			// 'vendor_id' => $this->faker->numberBetween(1, $vendorMax),
 			'img_id' => $this->faker->numberBetween(1, $imgMax),
 			'title' => $this->faker->words(3, true),
+			'brand' => $this->faker->word,
+			'tax' => $this->faker->randomFloat(2, 0, 200),
 			'description' => json_encode($this->faker->words(8)),
 			'price' => $this->faker->randomFloat(2, 0, 5000),
 			'rating' => $this->faker->numberBetween(0, 5),
 			'weight' => $this->faker->numberBetween(0, 1000),
 			'size' => $this->faker->numberBetween(1, 100) . ';' . $this->faker->numberBetween(1, 100) . ';' . $this->faker->numberBetween(1, 100),
 			'suggested' => $this->faker->boolean,
-			'tags' => json_encode(['clothes', 'cars', 'electrodomestic'])
+			'tags' => json_encode(['clothes', 'cars', 'electrodomestic']),
 		];
 	}
 }

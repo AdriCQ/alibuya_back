@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $vendor_id
  * @property string $title
+ * @property string $brand
+ * @property float $tax
  * @property array $description
  * @property int $img_id
  * @property float $price
