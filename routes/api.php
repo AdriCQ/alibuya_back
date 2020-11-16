@@ -10,11 +10,6 @@ Route::post('/', function (Request $request) {
   return response()->json($request);
 });
 
-/**
- * -----------------------------------------
- *	Auth Routes
- * -----------------------------------------
- */
-
-Route::prefix('/auth')->group(__DIR__ . '/api_routes/auth.php');
+Route::prefix('/location')->group(__DIR__ . '/api_routes/location.php');
+Route::prefix('/user')->group(__DIR__ . '/api_routes/user.php');
 Route::prefix('/shop')->group(__DIR__ . '/api_routes/shop.php');

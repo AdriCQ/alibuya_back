@@ -1,4 +1,4 @@
-GET /api/shop/product/all-paginated HTTP/1.1
+GET /shop/product/all-paginated HTTP/1.1
 Content-Type: application/json
 Host: {{ host }}
 Accept-Language: es

@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\Auth\PermissionSeeder;
-use Database\Seeders\Auth\UserSeeder;
-use Database\Seeders\Shop\ShopSeeder;
+use Database\Seeders\User\PermissionSeeder;
+use Database\Seeders\User\UserSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +16,7 @@ class DatabaseSeeder extends Seeder
 	public function run()
 	{
 		$this->call([
+			CountrySeeder::class,
 			PermissionSeeder::class,
 			UserSeeder::class,
 			ShopSeeder::class

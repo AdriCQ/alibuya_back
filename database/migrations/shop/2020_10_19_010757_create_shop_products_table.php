@@ -15,21 +15,21 @@ class CreateShopProductsTable extends Migration
 	{
 		Schema::create('shop_products', function (Blueprint $table) {
 			$table->id();
-			$table->foreignId('vendor_id')->constrained('shop_vendors')->cascadeOnDelete();
 			// Basic
 			$table->string('title', 50);
 			$table->string('brand')->nullable();
 			$table->unsignedDecimal('tax')->default(0);
 			// JSON
-			$table->string('description')->nullable();
-			$table->foreignId('img_id')->constrained('shop_images')->cascadeOnDelete();
+			$table->text('colors')->nullable();
+			// JSON
+			$table->longText('description')->nullable();
+			$table->foreignId('img_id')->constrained('shop_images');
 			$table->unsignedDecimal('price', 8, 2);
 			$table->unsignedTinyInteger('rating', false)->default(0);
 			// Dimension and weight
 			$table->unsignedInteger('weight')->default(0);
 			$table->string('size')->default("0;0;0");
 			// CONFIG
-			$table->boolean('suggested')->default(false);
 			$table->string('tags')->nullable();
 			$table->timestamps();
 		});

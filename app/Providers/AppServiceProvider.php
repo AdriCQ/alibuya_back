@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
 	 */
 	private function setDbPaths()
 	{
-		$MODULES = ['auth', 'shop'];
+		$MODULES = ['', 'user', 'shop', 'shop/pivot'];
 		$MIGRATIONS_FOLDER = [];
 		for ($i = 0; $i < count($MODULES); $i++) {
 			$MIGRATIONS_FOLDER[$i] = 'database/migrations/' . $MODULES[$i];

@@ -38,8 +38,8 @@ class Vendor extends Model
 		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
 
-	public function shopProducts()
+	public function products()
 	{
-		return $this->hasMany(Product::class, 'vendor_id', 'id');
+		return $this->belongsToMany(Product::class, 'shop_vendor_products');
 	}
 }

@@ -1,0 +1,30 @@
+POST /shop/pack HTTP/1.1
+Content-Type: application/json
+Host: {{ host }}
+Accept-Language: es
+Authorization: {{ token }}
+
+{
+  "delivery_method": "delivery_method",
+  "persons_info":[
+    {
+      "first_name": "first_name",
+      "last_name": "last_name",
+      "address": "address"
+    }
+  ],
+  "products":[
+    {
+      "id":1,
+      "cant":5
+    },
+    {
+      "id":2,
+      "cant":5
+    },
+    {
+      "id":3,
+      "cant":5
+    }
+  ]
+}

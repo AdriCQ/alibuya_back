@@ -3,7 +3,7 @@
 namespace Database\Factories\Shop;
 
 use App\Models\Shop\Vendor;
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class VendorFactory extends Factory
@@ -28,7 +28,7 @@ class VendorFactory extends Factory
       => $this->faker->numberBetween(1, $userMax),
       'title' => $this->faker->words(3, true),
       'description' => json_encode($this->faker->words(8)),
-      'type' => $this->faker->word
+      'type' => $this->faker->word,
     ];
   }
 }

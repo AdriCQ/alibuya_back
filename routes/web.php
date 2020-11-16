@@ -19,9 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 	return view('welcome');
 });
+
 Route::get('/test', function () {
-	Mail::to("adrian.capote95@zoho.com")->send(new OrderShipped());
+	Mail::to("adrian@localhost")->send(new OrderShipped());
 });
+
+Route::get('/login', function () {
+	return response()->json(['STATUS' => false, 'ERRORS' => ['Error de auntenticación']]);
+})->name('login');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
 	$request->fulfill();
