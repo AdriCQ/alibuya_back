@@ -5,25 +5,6 @@ namespace App\Models\Shop;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @property int $id
- * @property string $title
- * @property string $brand
- * @property string $colors
- * @property float $tax
- * @property array $description
- * @property int $img_id
- * @property float $price
- * @property int $rating
- * @property int $weight
- * @property string $size
- * @property boolean $suggested
- * @property array $tags
- * 
- * @property mixed $vendors
- * @property mixed $img
- * @property mixed $packs
- */
 class Product extends Model
 {
 	use HasFactory;
@@ -37,37 +18,16 @@ class Product extends Model
 	 * @var array
 	 */
 	protected $casts = [
-		'description' => 'array',
 		'tags' => 'array',
-		"colors" => 'array'
+		'options' => 'object'
 	];
-
-
-	public static function validationRules()
-	{
-		return [
-			'title' => ['required', 'string'],
-			'description' => ['required', 'array'],
-			'description.*' => ['required', 'string'],
-			'brand' => ['nullable', 'string'],
-			'colors' => ['nullable', 'array'],
-			'colors.*' => ['nullable', 'string'],
-			'tax' => ['required', 'numeric'],
-			'img_id' => ['nullable', 'integer'],
-			'price' => ['required', 'numeric'],
-			'weight' => ['required', 'integer'],
-			'size' => ['nullable', 'string'],
-			'tags' => ['required', 'array'],
-			'tags.*' => ['required', 'string']
-		];
-	}
 
 	/**
 	 * 
 	 */
 	public static function tableFields($extraFields = [])
 	{
-		$fields = ['id', 'tax', 'price', 'weight', 'tags'];
+		$fields = ['id', 'title', 'price', 'weight', 'tags'];
 		if (count($extraFields))
 			array_push($fields, $extraFields);
 		return $fields;
@@ -84,9 +44,14 @@ class Product extends Model
 		return $this->belongsToMany(Category::class, 'shop_category_products');
 	}
 
+	public function type()
+	{
+		return $this->belongsTo(ProductType::class, 'type_id', 'id');
+	}
+
 	public function vendors()
 	{
-		return $this->belongsToMany(Vendor::class, 'shop_vendor_products');
+		return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
 	}
 
 	public function img()

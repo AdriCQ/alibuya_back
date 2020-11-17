@@ -7,6 +7,7 @@ use App\Models\Shop\Category;
 use App\Models\Shop\Image;
 use App\Models\Shop\Pack;
 use App\Models\Shop\Product;
+use App\Models\Shop\ProductType;
 use App\Models\Shop\Vendor;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
@@ -39,13 +40,15 @@ class ShopSeeder extends Seeder
 		Category::query()->insert($categories);
 
 		// Buy 
-		Buy::factory()->has(
-			Pack::factory()->has(
-				Product::factory()->count(5)->has(
-					Vendor::factory()
-				)
-			)->buyDone()->count(3)
-		)->count(10)->create();
+		// Buy::factory()->has(
+		// 	Pack::factory()->has(
+		// 		Product::factory()->count(1)->has(
+		// 			Vendor::factory()
+		// 		)
+		// 	)->buyDone()->count(1)
+		// )->count(1)->create();
+		ProductType::factory()->count(20)->create();
+		Vendor::factory()->has(Product::factory()->count(5))->count(20)->create();
 
 		$cat_prod = [];
 		foreach (Product::all() as $product) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
 use App\Models\Shop\Category;
+use App\Models\Shop\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,7 +26,7 @@ class CategoryController extends Controller
 			// Find Category products
 			$category = Category::query()->where('tag', $categoryTag)->first();
 			if ($category) {
-				$this->API_RESPONSE['DATA'] = $category->products()->get(['title', 'tags'])->simplePaginate(10);
+				$this->API_RESPONSE['DATA'] = $category->products->toQuery()->simplePaginate(10, Product::tableFields());
 				$this->API_RESPONSE['STATUS'] = true;
 			} else {
 				$this->API_RESPONSE['ERRORS'] = ['No Category'];

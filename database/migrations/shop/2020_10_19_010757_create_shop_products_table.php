@@ -19,18 +19,19 @@ class CreateShopProductsTable extends Migration
 			$table->string('title', 50);
 			$table->string('brand')->nullable();
 			$table->unsignedDecimal('tax')->default(0);
-			// JSON
-			$table->text('colors')->nullable();
-			// JSON
 			$table->longText('description')->nullable();
-			$table->foreignId('img_id')->constrained('shop_images');
 			$table->unsignedDecimal('price', 8, 2);
-			$table->unsignedTinyInteger('rating', false)->default(0);
 			// Dimension and weight
 			$table->unsignedInteger('weight')->default(0);
-			$table->string('size')->default("0;0;0");
 			// CONFIG
-			$table->string('tags')->nullable();
+			$table->boolean('active')->default(false);
+			$table->longText('tags');
+			$table->longText('options');
+			$table->unsignedTinyInteger('rating', false)->default(0);
+			$table->boolean('suggested')->default(false);
+			$table->foreignId('vendor_id')->constrained('shop_vendors');
+			$table->foreignId('type_id')->constrained('shop_product_types');
+			$table->unsignedInteger('cant')->default(1);
 			$table->timestamps();
 		});
 	}

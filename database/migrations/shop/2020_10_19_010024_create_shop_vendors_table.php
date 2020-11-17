@@ -17,9 +17,9 @@ class CreateShopVendorsTable extends Migration
 			$table->id();
 			$table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
 			$table->string('title');
-			// JSON
 			$table->longText('description')->nullable();
-			// JSON
+			$table->boolean('active')->default(false);
+			// Array
 			$table->string('type')->nullable();
 			$table->timestamps();
 		});

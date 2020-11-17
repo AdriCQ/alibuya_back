@@ -22,14 +22,14 @@ class ProductController extends Controller
 	public function allPaginated()
 	{
 		$this->API_RESPONSE['STATUS'] = true;
-		$this->API_RESPONSE['DATA'] = Product::simplePaginate(10);
+		$this->API_RESPONSE['DATA'] = Product::simplePaginate(10, Product::tableFields());
 		return response()->json($this->API_RESPONSE);
 	}
 
 	/**
 	 * 
 	 */
-	public function suggested(Request $request)
+	public function suggestedByTag(Request $request)
 	{
 		$validator = Validator::make($request->all(), [
 			'tags' => ['required', 'array'],
@@ -39,12 +39,7 @@ class ProductController extends Controller
 			$this->API_RESPONSE['ERRORS'] = $validator->errors();
 		} else {
 			$validated = $validator->validate();
-			$suggestedProductsId = VendorProduct::query()->where('suggested', 1)->get('product_id');
-			$productsIdArray = [];
-			foreach ($suggestedProductsId as $key) {
-				array_push($productsIdArray, $key->product_id);
-			}
-			$suggested = Product::query()->whereIn('id', $productsIdArray);
+			$suggested = Product::query()->where('suggested', 1);
 			foreach ($validated['tags'] as $key => $tag) {
 				if ($key === 0)
 					$suggested = $suggested->where('tags', 'like', '%' . $tag . '%');
@@ -52,8 +47,67 @@ class ProductController extends Controller
 					$suggested = $suggested->orWhere('tags', 'like', '%' . $tag . '%');
 				}
 			}
-			$this->API_RESPONSE['DATA'] = $suggested->simplePaginate(10);
+			$this->API_RESPONSE['DATA'] =
+				$suggested->simplePaginate(10, Product::tableFields());
 			$this->API_RESPONSE['STATUS'] = true;
+		}
+		return response()->json($this->API_RESPONSE);
+	}
+
+	/**
+	 * 
+	 */
+	public function suggested()
+	{
+		$suggested = Product::query()->where('suggested', 1)->orderBy('rating', 'desc');
+		$this->API_RESPONSE['DATA'] =
+			$suggested->simplePaginate(10, Product::tableFields());
+		$this->API_RESPONSE['STATUS'] = true;
+		return response()->json($this->API_RESPONSE);
+	}
+
+	/**
+	 * 
+	 */
+	public function getById(Request $request)
+	{
+		$validator = Validator::make($request->all(), [
+			'product_id' => ['required', 'integer']
+		]);
+		if ($validator->fails()) {
+			$this->API_RESPONSE['ERRORS'] = $validator->errors();
+		} else {
+			$validated = $validator->validate();
+			$product = Product::query()->where('id', $validated['product_id'])->first();
+			if ($product) {
+				$this->API_RESPONSE['STATUS'] = true;
+				$this->API_RESPONSE['DATA'] = $product;
+			} else {
+				$this->API_RESPONSE['ERRORS'] = ['No encontrado'];
+			}
+		}
+		return response()->json($this->API_RESPONSE);
+	}
+
+	/**
+	 * 
+	 */
+	public function getByTypeId(Request $request)
+	{
+		$validator = Validator::make($request->all(), [
+			'type_id' => ['required', 'number']
+		]);
+		if ($validator->fails()) {
+			$this->API_RESPONSE['ERRORS'] = $validator->errors();
+		} else {
+			$validated = $validator->validate();
+			$product = Product::query()->where('type_id', $validated['type_id'])->simplePaginate(20, Product::tableFields());
+			if ($product) {
+				$this->API_RESPONSE['STATUS'] = true;
+				$this->API_RESPONSE['DATA'] = $product;
+			} else {
+				$this->API_RESPONSE['ERRORS'] = ['No encontrado'];
+			}
 		}
 		return response()->json($this->API_RESPONSE);
 	}

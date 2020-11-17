@@ -8,12 +8,13 @@ Route::namespace('App\Http\Controllers\Shop')->group(function () {
    */
   Route::prefix('/product')->group(function () {
     Route::post('/', 'ProductController@store')->middleware('auth:sanctum');
+    Route::get('/by-id', 'ProductController@getById');
     Route::get('/all-paginated', 'ProductController@allPaginated');
     Route::get('/suggested', 'ProductController@suggested');
   });
 
   /**
-   * Category Routes
+   * Category & Types Routes
    */
   Route::prefix('/category')->group(function () {
     Route::get('/', 'CategoryController@products');
