@@ -16,8 +16,10 @@ class CreateShopImagesTable extends Migration
 		Schema::create('shop_images', function (Blueprint $table) {
 			$table->id();
 			$table->string('title');
-			$table->string('type')->nullable();
-			$table->string('path');
+			// JSON Array
+			$table->json('tags')->nullable();
+			// JSON Array
+			$table->json('paths')->nullable();
 			$table->timestamps();
 		});
 	}

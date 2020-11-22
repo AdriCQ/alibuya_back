@@ -15,7 +15,7 @@ class Category extends Model
 		'title' => 'array'
 	];
 
-	public static $CATEGORIES = ['clothes', 'automotriz', 'cell', 'home', 'kids', 'health'];
+	public static $CATEGORIES = ['automotriz', 'cell', 'clothes', 'health', 'home', 'kids', 'pets'];
 
 
 	/**

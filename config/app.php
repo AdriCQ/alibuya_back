@@ -179,6 +179,7 @@ return [
 		* Custom
 		*/
 		Spatie\Permission\PermissionServiceProvider::class,
+		Intervention\Image\ImageServiceProvider::class
 	],
 
 	/*
@@ -229,6 +230,8 @@ return [
 		'Str' => Illuminate\Support\Str::class,
 		'URL' => Illuminate\Support\Facades\URL::class,
 		'Validator' => Illuminate\Support\Facades\Validator::class,
-		'View' => Illuminate\Support\Facades\View::class
+		'View' => Illuminate\Support\Facades\View::class,
+		// Custom
+		'Image' => Intervention\Image\Facades\Image::class
 	]
 ];

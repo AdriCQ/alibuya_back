@@ -15,7 +15,8 @@ return [
     |
     */
 
-    'paths' => ['/user/*', '/shop/*'],
+    'paths' => ['*'],
+    // 'paths' => ['/user/*', '/shop/*', '/vendor/*'],
 
     'allowed_methods' => ['*'],
 

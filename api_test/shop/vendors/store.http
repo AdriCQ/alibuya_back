@@ -1,0 +1,27 @@
+POST /vendor HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Host: {{ host }}
+Accept-Language: es
+Authorization: {{ token }}
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="title"
+
+title
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tags[0]"
+
+tag
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Description
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="img.png"
+Content-Type: image/png
+
+< ./img.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

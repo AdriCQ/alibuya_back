@@ -21,7 +21,8 @@ class Vendor extends Model
 	protected $guarded = ['id'];
 
 	protected $casts = [
-		'description' => 'array'
+		'description' => 'array',
+		'tags' => 'array'
 	];
 
 	/**
@@ -41,5 +42,10 @@ class Vendor extends Model
 	public function products()
 	{
 		return $this->hasMany(Product::class, 'vendor_id', 'id');
+	}
+
+	public function image()
+	{
+		return $this->belongsTo(Image::class, 'img_id', 'id');
 	}
 }

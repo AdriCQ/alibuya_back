@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
 			'mobile_phone' => '53375180',
 			'password' => Hash::make('password'),
 			'gender' => 'm',
-			'country' => 'cu',
+			'country' => 'CU',
 			'lang' => 'es',
 			'address' => 'Calle Silencio #32, Palmira, Cienfuegos'
 		]);

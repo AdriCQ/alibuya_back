@@ -23,8 +23,8 @@ class ImageFactory extends Factory
   {
     return [
       'title' => $this->faker->words(3, true),
-      'type' => $this->faker->word,
-      'path' => $this->faker->text(50)
+      'tags' => [$this->faker->word, $this->faker->word],
+      'paths' => ['sm' => $this->faker->url, 'md' => $this->faker->url, 'lg' => $this->faker->url]
     ];
   }
 }
