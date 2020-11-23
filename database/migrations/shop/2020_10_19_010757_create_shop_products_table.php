@@ -27,7 +27,7 @@ class CreateShopProductsTable extends Migration
 			$table->boolean('active')->default(false);
 			$table->longText('tags');
 			$table->longText('options');
-			$table->unsignedTinyInteger('rating', false)->default(0);
+			$table->unsignedTinyInteger('rating')->default(0);
 			$table->boolean('suggested')->default(false);
 			$table->foreignId('vendor_id')->constrained('shop_vendors');
 			$table->foreignId('type_id')->constrained('shop_product_types');

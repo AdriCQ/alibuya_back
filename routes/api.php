@@ -4,7 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (Request $request) {
-  return response()->json($request);
+  $array = ['a', 'b', 'c'];
+  $array = array_merge($array, ['d', 'e']);
+  return response()->json($array);
 });
 Route::post('/', function (Request $request) {
   return response()->json($request);

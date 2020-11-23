@@ -48,15 +48,15 @@ class ShopSeeder extends Seeder
 		// 	)->buyDone()->count(1)
 		// )->count(1)->create();
 		ProductType::factory()->count(20)->create();
-		// Vendor::factory()->has(Product::factory()->count(5))->count(20)->create();
+		Vendor::factory()->has(Product::factory()->count(15))->count(5)->create();
 
-		// $cat_prod = [];
-		// foreach (Product::all() as $product) {
-		// 	array_push($cat_prod, [
-		// 		'product_id' => $product->id,
-		// 		'category_id' => $faker->numberBetween(1, Category::query()->count())
-		// 	]);
-		// }
-		// DB::table('shop_category_products')->insert($cat_prod);
+		$cat_prod = [];
+		foreach (Product::all() as $product) {
+			array_push($cat_prod, [
+				'product_id' => $product->id,
+				'category_id' => $faker->numberBetween(1, Category::query()->count())
+			]);
+		}
+		DB::table('shop_category_products')->insert($cat_prod);
 	}
 }

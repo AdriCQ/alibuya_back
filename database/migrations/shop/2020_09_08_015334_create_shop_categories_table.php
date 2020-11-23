@@ -18,7 +18,6 @@ class CreateShopCategoriesTable extends Migration
 			$table->string('tag');
 			// JSON
 			$table->text('title');
-			$table->timestamps();
 		});
 	}
 

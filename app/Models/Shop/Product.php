@@ -29,7 +29,7 @@ class Product extends Model
 	{
 		$fields = ['id', 'title', 'price', 'weight', 'tags'];
 		if (count($extraFields))
-			array_push($fields, $extraFields);
+			$fields = array_merge($fields, $extraFields);
 		return $fields;
 	}
 

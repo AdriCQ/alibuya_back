@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\User\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -85,9 +86,7 @@ class AuthController extends Controller
 		$validator = Validator::make($request->all(), [
 			'first_name' => ['required', 'string'],
 			'last_name' => ['required', 'string'],
-			'country' => ['required', 'string', 'max:4'],
-			'state' => ['required', 'string'],
-			'city' => ['required', 'string']
+			'country' => ['required', 'string', 'max:4']
 		]);
 		if ($validator->fails()) {
 			$this->API_RESPONSE['ERRORS'] = $validator->errors();
@@ -101,5 +100,27 @@ class AuthController extends Controller
 			$user->city = $validated['city'];
 			// TODO: End Update User
 		}
+	}
+
+	/**
+	 * verifyEmail
+	 *
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
+	public function verifyEmail(Request $request)
+	{
+		$validator = Validator::make($request->all(), [
+			'email_verification' => ['required', 'string']
+		]);
+		//! Catch validate Error
+		if ($validator->fails()) {
+			$this->API_RESPONSE['ERRORS'] = $validator->errors();
+		}
+		//? Check if validate
+		else {
+			$validator = $validator->validate();
+		}
+		return response()->json($this->API_RESPONSE);
 	}
 }

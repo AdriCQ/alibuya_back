@@ -17,7 +17,9 @@ Route::namespace('App\Http\Controllers\Shop')->group(function () {
    * Category & Types Routes
    */
   Route::prefix('/category')->group(function () {
-    Route::get('/', 'CategoryController@products');
+    Route::get('/', 'CategoryController@categories');
+    Route::get('/products', 'CategoryController@products');
+    Route::get('/suggested-products', 'CategoryController@suggestedProducts');
   });
 
   /**
