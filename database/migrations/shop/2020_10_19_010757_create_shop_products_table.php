@@ -16,8 +16,8 @@ class CreateShopProductsTable extends Migration
 		Schema::create('shop_products', function (Blueprint $table) {
 			$table->id();
 			// Basic
-			$table->string('title', 50);
-			$table->string('brand')->nullable();
+			$table->string('title', 255);
+			$table->string('brand', 63)->nullable();
 			$table->unsignedDecimal('tax')->default(0);
 			$table->longText('description')->nullable();
 			$table->unsignedDecimal('price', 8, 2);
@@ -25,8 +25,9 @@ class CreateShopProductsTable extends Migration
 			$table->unsignedInteger('weight')->default(0);
 			// CONFIG
 			$table->boolean('active')->default(false);
-			$table->longText('tags');
-			$table->longText('options');
+			// JSON
+			$table->json('tags');
+			$table->json('options')->nullable();
 			$table->unsignedTinyInteger('rating')->default(0);
 			$table->boolean('suggested')->default(false);
 			$table->foreignId('vendor_id')->constrained('shop_vendors');

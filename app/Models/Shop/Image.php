@@ -39,10 +39,9 @@ class Image extends Model
 	 */
 	public function uploadImage($image, $type = 'product', $sizes = ['sm', 'md', 'lg'])
 	{
-		$_random = sha1(date('YmdHis'));
-		$filename =  $_random . '.' . $image->getClientOriginalExtension();
-		$storage_path = $this->STORAGE_PATH . '/shop';
-		$public_path = $this->PUBLIC_PATH . '/shop';
+		$filename =  sha1($image->getClientOriginalName()) . '_' . sha1(time()) . '.' . $image->getClientOriginalExtension();
+		$storage_path = $this->STORAGE_PATH;
+		$public_path = $this->PUBLIC_PATH;
 		switch ($type) {
 			case 'product':
 				$storage_path .= '/product';
@@ -81,7 +80,6 @@ class Image extends Model
 			}
 		}
 		$this->paths = $paths;
-		$this->title  = $_random;
 		return $this;
 	}
 }

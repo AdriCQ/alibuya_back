@@ -54,9 +54,9 @@ class Product extends Model
 		return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
 	}
 
-	public function img()
+	public function images()
 	{
-		return $this->hasOne(Image::class, 'img_id', 'id');
+		return $this->belongsToMany(Image::class, 'shop_product_images');
 	}
 
 	public function packs()

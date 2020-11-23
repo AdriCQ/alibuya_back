@@ -7,7 +7,6 @@ Route::namespace('App\Http\Controllers\Shop')->group(function () {
    * Product Routes
    */
   Route::prefix('/product')->group(function () {
-    Route::post('/', 'ProductController@store')->middleware('auth:sanctum');
     Route::get('/by-id', 'ProductController@getById');
     Route::get('/all-paginated', 'ProductController@allPaginated');
     Route::get('/suggested', 'ProductController@suggested');

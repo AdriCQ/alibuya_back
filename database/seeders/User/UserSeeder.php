@@ -29,9 +29,9 @@ class UserSeeder extends Seeder
 
 		User::query()->first()->assignRole('Developer');
 
-		$users = User::factory()->count(10)->create();
-		foreach ($users as $user) {
-			$user->assignRole('Guest');
-		}
+		// $users = User::factory()->count(10)->create();
+		// foreach ($users as $user) {
+		// 	$user->assignRole('Guest');
+		// }
 	}
 }

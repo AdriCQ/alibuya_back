@@ -48,7 +48,7 @@ class ShopSeeder extends Seeder
 		// 	)->buyDone()->count(1)
 		// )->count(1)->create();
 		ProductType::factory()->count(20)->create();
-		Vendor::factory()->has(Product::factory()->count(15))->count(5)->create();
+		Vendor::factory()->has(Product::factory()->count(1))->count(1)->create();
 
 		$cat_prod = [];
 		foreach (Product::all() as $product) {
