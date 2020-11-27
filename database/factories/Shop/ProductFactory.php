@@ -49,7 +49,7 @@ class ProductFactory extends Factory
 			'tags' => $this->faker->randomElements(Category::$CATEGORIES),
 			'suggested' => $this->faker->boolean(),
 			'type_id' => $this->faker->numberBetween(1, $maxType),
-			'active' => $this->faker->boolean()
+			'active' => $this->faker->boolean(),
 		];
 	}
 }
