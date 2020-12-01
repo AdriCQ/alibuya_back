@@ -16,3 +16,4 @@ Route::prefix('/location')->group(__DIR__ . '/api_routes/location.php');
 Route::prefix('/user')->group(__DIR__ . '/api_routes/user.php');
 Route::prefix('/shop')->group(__DIR__ . '/api_routes/shop.php');
 Route::prefix('/vendor')->group(__DIR__ . '/api_routes/vendor.php');
+Route::prefix('/promotion')->group(__DIR__ . '/api_routes/promotion.php');

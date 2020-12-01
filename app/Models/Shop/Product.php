@@ -33,6 +33,11 @@ class Product extends Model
 		return $fields;
 	}
 
+	public function getImagesAttribute()
+	{
+		return $this->images;
+	}
+
 	/**
 	 * -----------------------------------------
 	 *	Eloquent Relationships
@@ -62,5 +67,10 @@ class Product extends Model
 	public function packs()
 	{
 		return $this->belongsToMany(Pack::class, 'shop_pack_products');
+	}
+
+	public function promotions()
+	{
+		return $this->belongsToMany(Category::class, 'shop_promotion_products');
 	}
 }

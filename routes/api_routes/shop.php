@@ -10,6 +10,7 @@ Route::namespace('App\Http\Controllers\Shop')->group(function () {
     Route::get('/by-id', 'ProductController@getById');
     Route::get('/all-paginated', 'ProductController@allPaginated');
     Route::get('/suggested', 'ProductController@suggested');
+    Route::get('/search', 'ProductController@search');
   });
 
   /**
