@@ -3,8 +3,11 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 // Register Views
-Vue.component('shop-main-view', () => import('./vue/views/shop/Categories.vue'));
+import VueCategories from './vue/views/shop/Categories.vue';
 
 const appVue = new Vue({
-  el: '#app'
+  el: '#app',
+  components: {
+    'shop-main-view': VueCategories
+  }
 })
