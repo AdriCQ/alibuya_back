@@ -14,13 +14,12 @@ class Category extends Model
 	protected $appends = ['rating'];
 
 	protected $casts = [
-		'title' => 'array',
 		'rating' => 'integer'
 	];
 
 	public $timestamps = false;
 
-	public static $CATEGORIES = ['automotriz', 'cell', 'clothes', 'health', 'home', 'kids', 'pets'];
+	public static $CATEGORIES = ['sport', 'kid', 'home', 'auto', 'food', 'gift', 'electronic', 'health', 'handmade', 'office', 'clothes'];
 
 	public function getRatingAttribute()
 	{
@@ -48,5 +47,10 @@ class Category extends Model
 	public function products()
 	{
 		return $this->belongsToMany(Product::class, 'shop_category_products');
+	}
+
+	public function types()
+	{
+		return $this->hasMany(ProductType::class, 'category_id', 'id');
 	}
 }

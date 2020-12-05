@@ -17,19 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	return view('welcome');
+	// return view('welcome');
+	return view('layouts.app');
 });
-
-Route::get('/test', function () {
-	Mail::to("adrian@localhost")->send(new OrderShipped());
-});
-
-Route::get('/login', function () {
-	return response()->json(['STATUS' => false, 'ERRORS' => ['Error de auntenticación']]);
-})->name('login');
-
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-	$request->fulfill();
-
-	return redirect('/');
-})->middleware(['auth', 'signed'])->name('verification.verify');

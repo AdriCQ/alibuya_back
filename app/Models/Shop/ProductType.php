@@ -9,7 +9,7 @@ class ProductType extends Model
 {
 	use HasFactory;
 	protected $table = 'shop_product_types';
-
+	public $timestamps = false;
 
 
 	/**

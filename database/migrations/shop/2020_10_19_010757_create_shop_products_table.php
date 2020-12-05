@@ -18,8 +18,9 @@ class CreateShopProductsTable extends Migration
 			// Basic
 			$table->string('title', 255);
 			$table->string('brand', 63)->nullable();
+			$table->foreignId('img_id')->constrained('shop_images');
 			$table->unsignedDecimal('tax')->default(0);
-			$table->longText('description')->nullable();
+			$table->json('description')->nullable();
 			$table->unsignedDecimal('price', 8, 2);
 			// Dimension and weight
 			$table->unsignedInteger('weight')->default(0);
@@ -32,7 +33,7 @@ class CreateShopProductsTable extends Migration
 			$table->boolean('suggested')->default(false);
 			$table->foreignId('vendor_id')->constrained('shop_vendors');
 			$table->foreignId('type_id')->constrained('shop_product_types');
-			$table->unsignedInteger('cant')->default(1);
+			$table->unsignedInteger('available_cant')->default(1);
 			$table->timestamps();
 		});
 	}

@@ -19,7 +19,9 @@
 </head>
 
 <body class="font-sans antialiased">
-  <main id="app"></main>
+  <main id="app">
+    <shop-main-view />
+  </main>
 </body>
 
 </html>

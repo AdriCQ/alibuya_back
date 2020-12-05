@@ -109,7 +109,7 @@ class ProductController extends Controller
 	public function allPaginated()
 	{
 		$this->API_RESPONSE['STATUS'] = true;
-		$this->API_RESPONSE['DATA'] = Product::query()->with('images')->simplePaginate(10, Product::tableFields());
+		$this->API_RESPONSE['DATA'] = Product::query()->with('image')->simplePaginate(10, Product::tableFields());
 		return response()->json($this->API_RESPONSE);
 	}
 
@@ -135,7 +135,7 @@ class ProductController extends Controller
 				}
 			}
 			$this->API_RESPONSE['DATA'] =
-				$suggested->with('images')->simplePaginate(10, Product::tableFields());
+				$suggested->with('image')->simplePaginate(10, Product::tableFields());
 			$this->API_RESPONSE['STATUS'] = true;
 		}
 		return response()->json($this->API_RESPONSE);
@@ -146,7 +146,7 @@ class ProductController extends Controller
 	 */
 	public function suggested()
 	{
-		$suggested = Product::query()->where('suggested', 1)->with('images')->orderBy('rating', 'desc');
+		$suggested = Product::query()->where('suggested', 1)->with('image')->orderBy('rating', 'desc');
 		$this->API_RESPONSE['DATA'] =
 			$suggested->simplePaginate(10, Product::tableFields());
 		$this->API_RESPONSE['STATUS'] = true;
@@ -165,7 +165,7 @@ class ProductController extends Controller
 			$this->API_RESPONSE['ERRORS'] = $validator->errors();
 		} else {
 			$validated = $validator->validate();
-			$product = Product::query()->where('id', $validated['product_id'])->with('images')->first();
+			$product = Product::query()->where('id', $validated['product_id'])->with(['image', 'images'])->first();
 			if ($product) {
 				$this->API_RESPONSE['STATUS'] = true;
 				$this->API_RESPONSE['DATA'] = $product;
@@ -192,7 +192,7 @@ class ProductController extends Controller
 			$this->API_RESPONSE['ERRORS'] = $validator->errors();
 		} else {
 			$validated = $validator->validate();
-			$product = Product::query()->where('type_id', $validated['type_id'])->with('images')->simplePaginate(20, Product::tableFields());
+			$product = Product::query()->where('type_id', $validated['type_id'])->with('image')->simplePaginate(20, Product::tableFields());
 			if ($product) {
 				$this->API_RESPONSE['STATUS'] = true;
 				$this->API_RESPONSE['DATA'] = $product;
@@ -216,7 +216,7 @@ class ProductController extends Controller
 				->orWhere('title', 'like', '%' . $validator['search'] . '%')
 				->orWhere('description', 'like', '%' . $validator['search'] . '%')
 				->orWhere('brand', 'like', '%' . $validator['search'] . '%');
-			$this->API_RESPONSE['DATA'] = $query->orderBy('rating', 'desc')->with('images')->simplePaginate(10, Product::tableFields(['rating']));
+			$this->API_RESPONSE['DATA'] = $query->orderBy('rating', 'desc')->with('image')->simplePaginate(10, Product::tableFields(['rating']));
 			$this->API_RESPONSE['STATUS'] = true;
 		}
 		return response()->json($this->API_RESPONSE);

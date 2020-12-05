@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\Shop\CategoriesSeeder;
+use Illuminate\Database\Seeder;
+
+use Database\Seeders\Shop\ShopSeeder;
 use Database\Seeders\User\PermissionSeeder;
 use Database\Seeders\User\UserSeeder;
-use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +22,7 @@ class DatabaseSeeder extends Seeder
 			CountrySeeder::class,
 			PermissionSeeder::class,
 			UserSeeder::class,
+			CategoriesSeeder::class,
 			ShopSeeder::class
 		]);
 	}

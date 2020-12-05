@@ -16,8 +16,9 @@ class CreateShopProductTypesTable extends Migration
 		Schema::create('shop_product_types', function (Blueprint $table) {
 			$table->id();
 			$table->foreignId('category_id')->constrained('shop_categories');
-			$table->string('name');
-			$table->timestamps();
+			$table->string('tag');
+			$table->string('title');
+			$table->unsignedTinyInteger('rating')->default(0);
 		});
 	}
 

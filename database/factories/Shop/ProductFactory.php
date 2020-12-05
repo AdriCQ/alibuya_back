@@ -3,12 +3,10 @@
 namespace Database\Factories\Shop;
 
 use App\Models\Shop\Category;
-use App\Models\Shop\Image;
 use App\Models\Shop\Product;
 use App\Models\Shop\ProductType;
 use App\Models\Shop\Vendor;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\DB;
 
 class ProductFactory extends Factory
 {
@@ -29,13 +27,14 @@ class ProductFactory extends Factory
 		$maxVendor = Vendor::query()->count();
 		$colors = [];
 		for ($i = 0; $i < 10; $i++) {
-			array_push($colors, $this->faker->colorName);
+			array_push($colors, [$this->faker->colorName => $this->faker->hexColor]);
 		}
 		$maxType = ProductType::query()->count();
 		return [
-			// 'vendor_id' => $this->faker->numberBetween(1, $maxVendor),
+			'vendor_id' => $this->faker->numberBetween(1, $maxVendor),
 			'title' => $this->faker->words(3, true),
 			'brand' => $this->faker->word,
+			'img_id' => 1,
 			'options' => [
 				'colors' => $this->faker->randomElements($colors, 3),
 				'size' => $this->faker->numberBetween(1, 100) . 'cm;' . $this->faker->numberBetween(1, 100) . 'cm;' . $this->faker->numberBetween(1, 100) . 'cm',
@@ -50,6 +49,7 @@ class ProductFactory extends Factory
 			'suggested' => $this->faker->boolean(),
 			'type_id' => $this->faker->numberBetween(1, $maxType),
 			'active' => $this->faker->boolean(),
+			'available_cant' => $this->faker->numberBetween(1, 100)
 		];
 	}
 }

@@ -75,7 +75,7 @@ class CategoryController extends Controller
 	 */
 	public function categories()
 	{
-		$categories = Category::all();
+		$categories = Category::query()->with('types')->get();
 		$this->API_RESPONSE['DATA'] = $categories;
 		return response()->json($this->API_RESPONSE);
 	}

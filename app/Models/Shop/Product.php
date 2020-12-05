@@ -27,7 +27,7 @@ class Product extends Model
 	 */
 	public static function tableFields($extraFields = [])
 	{
-		$fields = ['id', 'title', 'price', 'weight', 'tags'];
+		$fields = ['id', 'title', 'price', 'weight', 'tags', 'rating'];
 		if (count($extraFields))
 			$fields = array_merge($fields, $extraFields);
 		return $fields;
@@ -57,6 +57,11 @@ class Product extends Model
 	public function vendors()
 	{
 		return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
+	}
+
+	public function image()
+	{
+		return $this->belongsTo(Image::class, 'img_id', 'id');
 	}
 
 	public function images()
