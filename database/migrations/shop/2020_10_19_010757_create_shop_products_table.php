@@ -20,7 +20,7 @@ class CreateShopProductsTable extends Migration
 			$table->string('brand', 63)->nullable();
 			$table->foreignId('img_id')->constrained('shop_images');
 			$table->unsignedDecimal('tax')->default(0);
-			$table->json('description')->nullable();
+			$table->longText('description')->nullable();
 			$table->unsignedDecimal('price', 8, 2);
 			// Dimension and weight
 			$table->unsignedInteger('weight')->default(0);

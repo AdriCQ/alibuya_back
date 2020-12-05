@@ -18,7 +18,7 @@ class CreateShopVendorsTable extends Migration
 			$table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
 			$table->string('title');
 			$table->foreignId('img_id')->constrained('shop_images');
-			$table->json('description')->nullable();
+			$table->longText('description')->nullable();
 			$table->boolean('active')->default(false);
 			// JSON Array
 			$table->json('tags')->nullable();
