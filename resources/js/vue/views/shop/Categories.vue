@@ -18,7 +18,7 @@ import axios from 'axios';
 export default {
   name: 'shop-categories-view',
   created(){
-    axios.get('http://localhost:8000/shop/category').then(_resp=>{
+    axios.get('http://alibuya.net/api/public/shop/category').then(_resp=>{
       this.categories = _resp.data.DATA;
     })
   },
