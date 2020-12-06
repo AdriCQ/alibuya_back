@@ -11,6 +11,10 @@ class ProductType extends Model
 	protected $table = 'shop_product_types';
 	public $timestamps = false;
 
+	protected $casts = [
+		'rating' => 'integer',
+		'title' => 'object'
+	];
 
 	/**
 	 * -----------------------------------------

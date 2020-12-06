@@ -18,7 +18,8 @@ class Promotion extends Model
 	 * @var array
 	 */
 	protected $casts = [
-		'tags' => 'array'
+		'tags' => 'array',
+		'title' => 'object'
 	];
 
 	/**
@@ -29,6 +30,6 @@ class Promotion extends Model
 
 	public function products()
 	{
-		return $this->belongsToMany(Category::class, 'shop_promotion_products');
+		return $this->belongsToMany(Product::class, 'shop_promotion_products');
 	}
 }
