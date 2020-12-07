@@ -20,6 +20,7 @@ Route::namespace('App\Http\Controllers\Shop')->group(function () {
     Route::get('/', 'CategoryController@categories');
     Route::get('/products', 'CategoryController@products');
     Route::get('/suggested-products', 'CategoryController@suggestedProducts');
+    Route::get('/type/products', 'CategoryController@productsByTypeTag');
   });
 
   /**
@@ -36,5 +37,11 @@ Route::namespace('App\Http\Controllers\Shop')->group(function () {
   Route::prefix('/buy')->middleware('auth:sanctum')->group(function () {
     Route::get('/', 'BuyController@userBuyList');
     Route::post('/', 'BuyController@buy');
+  });
+
+  Route::prefix('/promotion')->group(function () {
+    Route::get('/', 'PromotionController@promotions');
+    Route::get('/active', 'PromotionController@availablePromotions');
+    Route::get('/by-tags', 'PromotionController@promotionsByTags');
   });
 });

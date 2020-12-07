@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class PromotionController extends Controller
 {
+	/**
+	 * availablePromotions
+	 *
+	 * @return void
+	 */
 	public function availablePromotions()
 	{
 		$promotions = Promotion::query()->orderBy('priority', 'desc')->simplePaginate(10);
@@ -17,17 +22,31 @@ class PromotionController extends Controller
 		return response()->json($this->API_RESPONSE);
 	}
 
-	public function promotions(Request $request)
+	/**
+	 * promotionsByTags
+	 *
+	 * @param  mixed $request
+	 * @return void
+	 */
+	public function promotionsByTags(Request $request)
 	{
 		$validator = Validator::make($request->all(), [
 			'tags' => ['required', 'array'],
-			'tags.*' => ['required', 'string']
+			'tags.*' => ['required', 'string'],
+			'cant' => ['nullable', 'integer']
 		]);
 		if ($validator->fails()) {
 			$this->API_RESPONSE['ERRORS'] = $validator->errors();
 		} else {
 			$validator = $validator->validate();
-			$promotions = Promotion::query()->whereJsonContains('tags', $validator['tags'])->with('products')->orderBy('priority', 'desc')->simplePaginate(2);
+			$cant = 1;
+			if (isset($validator['cant'])) {
+				$cant = $validator['cant'];
+			}
+			$promotions = Promotion::query()->whereJsonContains('tags', $validator['tags'])->orderBy('priority', 'desc')->with(['products:id,title,price,weight,rating,img_id', 'products.image:id,title,paths'])->take($cant)->get();
+			$this->API_RESPONSE['DATA'] = $promotions;
+			$this->API_RESPONSE['STATUS'] = true;
 		}
+		return response()->json($this->API_RESPONSE);
 	}
 }

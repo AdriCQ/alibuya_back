@@ -1,9 +1,9 @@
-GET /shop/category/products HTTP/1.1
+GET /shop/category/type/products HTTP/1.1
 Content-Type: application/json
 Host: {{ host }}
 Accept-Language: es
 Authorization: {{ token }}
 
 {
-  "category": "kid"
+  "type": "sport.run"
 }

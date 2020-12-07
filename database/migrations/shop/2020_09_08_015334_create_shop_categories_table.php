@@ -16,7 +16,7 @@ class CreateShopCategoriesTable extends Migration
 		Schema::create('shop_categories', function (Blueprint $table) {
 			$table->id();
 			$table->string('tag');
-			$table->text('title');
+			$table->json('title');
 		});
 	}
 

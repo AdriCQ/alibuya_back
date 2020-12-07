@@ -1,12 +1,12 @@
 <?php
 
+use App\Models\Shop\ProductType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (Request $request) {
-  $array = ['a', 'b', 'c'];
-  $array = array_merge($array, ['d', 'e']);
-  return response()->json($array);
+  $types = ProductType::query()->orderBy('category_id', 'desc')->get(['tag', 'title']);
+  return response()->json($types);
 });
 Route::post('/', function (Request $request) {
   return response()->json($request);
@@ -16,4 +16,3 @@ Route::prefix('/location')->group(__DIR__ . '/api_routes/location.php');
 Route::prefix('/user')->group(__DIR__ . '/api_routes/user.php');
 Route::prefix('/shop')->group(__DIR__ . '/api_routes/shop.php');
 Route::prefix('/vendor')->group(__DIR__ . '/api_routes/vendor.php');
-Route::prefix('/promotion')->group(__DIR__ . '/api_routes/promotion.php');

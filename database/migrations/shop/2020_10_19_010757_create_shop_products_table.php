@@ -33,6 +33,7 @@ class CreateShopProductsTable extends Migration
 			$table->boolean('suggested')->default(false);
 			$table->foreignId('vendor_id')->constrained('shop_vendors');
 			$table->foreignId('type_id')->constrained('shop_product_types');
+			$table->foreignId('category_id')->constrained('shop_categories');
 			$table->unsignedInteger('available_cant')->default(1);
 			$table->timestamps();
 		});
