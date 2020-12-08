@@ -1,5 +1,8 @@
-GET /shop/promotion/active HTTP/1.1
+GET /shop/ann/by-id HTTP/1.1
 Content-Type: application/json
 Host: {{ host }}
 Accept-Language: es
-Authorization: {{ token }}
+
+{
+  "ann":4
+}

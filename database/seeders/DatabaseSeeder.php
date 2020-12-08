@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\Shop\CategoriesSeeder;
 use Illuminate\Database\Seeder;
 
 use Database\Seeders\Shop\ShopSeeder;
@@ -22,7 +21,6 @@ class DatabaseSeeder extends Seeder
 			CountrySeeder::class,
 			PermissionSeeder::class,
 			UserSeeder::class,
-			CategoriesSeeder::class,
 			ShopSeeder::class
 		]);
 	}

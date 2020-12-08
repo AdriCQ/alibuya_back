@@ -23,6 +23,12 @@ class Product extends Model
 	];
 
 	/**
+	 * The accessors to append to the model's array form.
+	 *
+	 * @var array
+	 */
+
+	/**
 	 * 
 	 */
 	public static function tableFields($extraFields = [])
@@ -31,16 +37,6 @@ class Product extends Model
 		if (count($extraFields))
 			$fields = array_merge($fields, $extraFields);
 		return $fields;
-	}
-
-	public function getImagesAttribute()
-	{
-		return $this->images;
-	}
-
-	public function getImageAttribute()
-	{
-		return $this->image;
 	}
 
 	/**
@@ -79,8 +75,8 @@ class Product extends Model
 		return $this->belongsToMany(Pack::class, 'shop_pack_products');
 	}
 
-	public function promotions()
+	public function announcements()
 	{
-		return $this->belongsToMany(Category::class, 'shop_promotion_products');
+		return $this->belongsToMany(Announcement::class, 'shop_announcement_products');
 	}
 }

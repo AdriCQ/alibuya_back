@@ -39,9 +39,11 @@ Route::namespace('App\Http\Controllers\Shop')->group(function () {
     Route::post('/', 'BuyController@buy');
   });
 
-  Route::prefix('/promotion')->group(function () {
-    Route::get('/', 'PromotionController@promotions');
-    Route::get('/active', 'PromotionController@availablePromotions');
-    Route::get('/by-tags', 'PromotionController@promotionsByTags');
+  /**
+   * Announcements Routes
+   */
+  Route::prefix('/ann')->group(function () {
+    Route::get('/', 'AnnouncementController@announcements');
+    Route::get('/by-id', 'AnnouncementController@getById');
   });
 });
