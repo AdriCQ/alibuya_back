@@ -58,7 +58,7 @@ class CategoriesSeeder extends Seeder
 			// Home
 			[
 				'tag' => 'home',
-				'title' => ['es' => 'Hogar, Jardinería, Bricolaje y Mascotas', 'en' => 'Hogar, Jardinería, Bricolaje y Mascotas'],
+				'title' => ['es' => 'Hogar, Bricolaje, Jardinería y Mascotas', 'en' => 'Hogar, Jardinería, Bricolaje y Mascotas'],
 				'types' => [
 					['tag' => 'home.kitchen', 'title' => ['es' => 'Cocina y Comedor', 'en' => 'Kitchen & Dinner Room']],
 					['tag' => 'home.bedroom', 'title' => ['es' => 'Dormitorio', 'en' => 'Bedroom']],

@@ -22,16 +22,21 @@ class CategoryController extends Controller
 	{
 		$validator = Validator::make($request->all(), [
 			'category' => ['required', 'string'],
+			'max' => ['nullable', 'integer']
 		]);
 		if ($validator->fails()) {
 			$this->API_RESPONSE['ERRORS'] = $validator->errors();
 		} else {
 			$validated = $validator->validate();
+			$max = 12;
+			if (isset($validated['max'])) {
+				$max = $validated['max'];
+			}
 			$categoryTag = $validated['category'];
 			// Find Category products
 			$category = Category::query()->where('tag', $categoryTag)->first();
 			if ($category && count($category->products)) {
-				$this->API_RESPONSE['DATA'] = $category->products->toQuery()->orderBy('rating', 'desc')->simplePaginate(12, Product::tableFields());
+				$this->API_RESPONSE['DATA'] = $category->products->toQuery()->orderBy('rating', 'desc')->simplePaginate($max, Product::tableFields());
 				$this->API_RESPONSE['STATUS'] = true;
 			} else {
 				$this->API_RESPONSE['ERRORS'] = ['No Category'];
@@ -50,7 +55,7 @@ class CategoryController extends Controller
 	{
 		$validator = Validator::make($request->all(), [
 			'category' => ['required', 'string'],
-			'products_cant' => ['nullable', 'integer']
+			'max' => ['nullable', 'integer']
 		]);
 		if ($validator->fails()) {
 			$this->API_RESPONSE['ERRORS'] = $validator->errors();
@@ -59,8 +64,8 @@ class CategoryController extends Controller
 			$category = Category::query()->where('tag', $validator['category'])->first();
 			if ($category) {
 				$products = $category->products->toQuery()->where('suggested', true)->orderBy('rating', 'desc');
-				if (isset($validator['products_cant'])) {
-					$this->API_RESPONSE['DATA'] = $products->take($validator['products_cant'])->get(Product::tableFields(['rating']));
+				if (isset($validator['max'])) {
+					$this->API_RESPONSE['DATA'] = $products->take($validator['max'])->get(Product::tableFields(['rating']));
 				} else {
 					$this->API_RESPONSE['DATA'] = $products->take(8)->get(Product::tableFields(['rating']));
 				}
@@ -91,22 +96,52 @@ class CategoryController extends Controller
 	public function productsByTypeTag(Request $request)
 	{
 		$validator = Validator::make($request->all(), [
-			'type' => ['required', 'string']
+			'type' => ['required', 'string'],
+			'max' => ['nullable', 'integer']
 		]);
 		if ($validator->fails()) {
 			$this->API_RESPONSE['ERRORS'] = $validator->errors();
 		} else {
 			$validator = $validator->validate();
+			$max = 12;
+			if (isset($validator['max']))
+				$max = $validator['max'];
 			$query = ProductType::query()->where('tag', $validator['type']);
 			if ($query->count() > 0) {
 				$type  = $query->first();
 				if (count($type->products)) {
-					$products = $type->products->toQuery()->orderBy('rating', 'desc')->simplePaginate(12, Product::tableFields());
+					$products = $type->products->toQuery()->orderBy('rating', 'desc')->simplePaginate($max, Product::tableFields());
 					$this->API_RESPONSE['DATA'] = $products;
 					$this->API_RESPONSE['STATUS'] = true;
 				}
 			}
 		}
+		return response()->json($this->API_RESPONSE);
+	}
+
+	/**
+	 * getCategoriesByRating
+	 *
+	 * @return void
+	 */
+	public function getCategoriesByRating()
+	{
+		$categories = Category::query()->orderBy('rating', 'desc')->get();
+		$this->API_RESPONSE['DATA'] = $categories;
+		$this->API_RESPONSE['STATUS'] = true;
+		return response()->json($this->API_RESPONSE);
+	}
+
+	/**
+	 * getTypesByRating
+	 *
+	 * @return void
+	 */
+	public function getTypesByRating()
+	{
+		$categories = ProductType::query()->orderBy('rating', 'desc')->get();
+		$this->API_RESPONSE['DATA'] = $categories;
+		$this->API_RESPONSE['STATUS'] = true;
 		return response()->json($this->API_RESPONSE);
 	}
 }

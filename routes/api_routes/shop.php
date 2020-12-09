@@ -18,8 +18,10 @@ Route::namespace('App\Http\Controllers\Shop')->group(function () {
    */
   Route::prefix('/category')->group(function () {
     Route::get('/', 'CategoryController@categories');
+    Route::get('/by-rating', 'CategoryController@getCategoriesByRating');
     Route::get('/products', 'CategoryController@products');
     Route::get('/suggested-products', 'CategoryController@suggestedProducts');
+    Route::get('/type/by-rating', 'CategoryController@getTypesByRating');
     Route::get('/type/products', 'CategoryController@productsByTypeTag');
   });
 
@@ -39,9 +41,12 @@ Route::namespace('App\Http\Controllers\Shop')->group(function () {
     Route::post('/', 'BuyController@buy');
   });
 
-  Route::prefix('/promotion')->group(function () {
-    Route::get('/', 'PromotionController@promotions');
-    Route::get('/active', 'PromotionController@availablePromotions');
-    Route::get('/by-tags', 'PromotionController@promotionsByTags');
+  /**
+   * Announcements Routes
+   */
+  Route::prefix('/ann')->group(function () {
+    Route::get('/', 'AnnouncementController@announcements');
+    Route::get('/home', 'AnnouncementController@loadHomeAnnouncements');
+    Route::get('/by-id', 'AnnouncementController@getById');
   });
 });

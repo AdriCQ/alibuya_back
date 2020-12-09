@@ -120,12 +120,17 @@ class ProductController extends Controller
 	{
 		$validator = Validator::make($request->all(), [
 			'tags' => ['required', 'array'],
-			'tags.*' => ['required', 'string']
+			'tags.*' => ['required', 'string'],
+			'max' => ['nullable', 'integer']
 		]);
 		if ($validator->fails()) {
 			$this->API_RESPONSE['ERRORS'] = $validator->errors();
 		} else {
 			$validated = $validator->validate();
+			$max = 12;
+			if (isset($validated['max'])) {
+				$max = $validated['max'];
+			}
 			$suggested = Product::query()->where('suggested', 1);
 			foreach ($validated['tags'] as $key => $tag) {
 				if ($key === 0)
@@ -135,7 +140,7 @@ class ProductController extends Controller
 				}
 			}
 			$this->API_RESPONSE['DATA'] =
-				$suggested->with('image')->simplePaginate(10, Product::tableFields());
+				$suggested->with('image')->simplePaginate($max, Product::tableFields());
 			$this->API_RESPONSE['STATUS'] = true;
 		}
 		return response()->json($this->API_RESPONSE);
@@ -203,6 +208,12 @@ class ProductController extends Controller
 		return response()->json($this->API_RESPONSE);
 	}
 
+	/**
+	 * search
+	 *
+	 * @param  mixed $request
+	 * @return void
+	 */
 	public function search(Request $request)
 	{
 		$validator = Validator::make($request->all(), [

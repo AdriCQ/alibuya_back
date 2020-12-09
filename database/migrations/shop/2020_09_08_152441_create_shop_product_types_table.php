@@ -17,7 +17,7 @@ class CreateShopProductTypesTable extends Migration
 			$table->id();
 			$table->foreignId('category_id')->constrained('shop_categories');
 			$table->string('tag');
-			$table->string('title');
+			$table->json('title');
 			$table->unsignedTinyInteger('rating')->default(0);
 		});
 	}
