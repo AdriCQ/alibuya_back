@@ -37,7 +37,7 @@ class ShopSeeder extends Seeder
 		$this->seedVendors();
 		$this->call([
 			ProductSeeder::class,
-			AnnouncementSeeder::class
+			// AnnouncementSeeder::class
 		]);
 	}
 

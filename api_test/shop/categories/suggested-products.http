@@ -6,5 +6,5 @@ Authorization: {{ token }}
 
 {
   "category": "kids",
-  "products_cant": 5
+  "max": 5
 }

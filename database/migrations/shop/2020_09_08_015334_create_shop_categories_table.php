@@ -17,6 +17,7 @@ class CreateShopCategoriesTable extends Migration
 			$table->id();
 			$table->string('tag');
 			$table->json('title');
+			$table->unsignedTinyInteger('rating')->default(0);
 		});
 	}
 

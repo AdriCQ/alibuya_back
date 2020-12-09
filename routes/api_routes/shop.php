@@ -18,8 +18,10 @@ Route::namespace('App\Http\Controllers\Shop')->group(function () {
    */
   Route::prefix('/category')->group(function () {
     Route::get('/', 'CategoryController@categories');
+    Route::get('/by-rating', 'CategoryController@getCategoriesByRating');
     Route::get('/products', 'CategoryController@products');
     Route::get('/suggested-products', 'CategoryController@suggestedProducts');
+    Route::get('/type/by-rating', 'CategoryController@getTypesByRating');
     Route::get('/type/products', 'CategoryController@productsByTypeTag');
   });
 
@@ -44,6 +46,7 @@ Route::namespace('App\Http\Controllers\Shop')->group(function () {
    */
   Route::prefix('/ann')->group(function () {
     Route::get('/', 'AnnouncementController@announcements');
+    Route::get('/home', 'AnnouncementController@loadHomeAnnouncements');
     Route::get('/by-id', 'AnnouncementController@getById');
   });
 });
