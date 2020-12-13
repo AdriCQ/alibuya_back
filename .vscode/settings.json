@@ -19,5 +19,6 @@
       "secretKey": "prodSecret"
     }
   },
-  "editor.wordWrap": "on"
+  "editor.wordWrap": "on",
+  "editor.accessibilitySupport": "off"
 }

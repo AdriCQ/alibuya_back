@@ -51,7 +51,6 @@ class User extends Authenticatable
 		'email_verified_at' => 'datetime',
 	];
 
-
 	/**
 	 * -----------------------------------------
 	 *	Relations
@@ -61,5 +60,10 @@ class User extends Authenticatable
 	public function vendors()
 	{
 		return $this->hasMany(Vendor::class, 'user_id', 'id');
+	}
+
+	public function emailVerificationCode()
+	{
+		return $this->hasOne(EmailVerificationCode::class, 'user_id', 'id');
 	}
 }
