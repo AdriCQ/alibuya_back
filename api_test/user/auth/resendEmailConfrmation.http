@@ -4,5 +4,5 @@ Host: {{ host }}
 Accept-Language: es
 
 {
-  "email": "yksandir2@localhost.com"
+  "email": "adrian@localhost.com"
 }

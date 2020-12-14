@@ -34,7 +34,8 @@ class ResetPassword extends Mailable implements ShouldQueue
 	 */
 	public function build()
 	{
-		$url = AppSettings::$CLIENT_URL . '/?email=' . urlencode($this->user->email) . '&token=' . urlencode($this->token);
+		//http://localhost:8080/#/auth/reset-password
+		$url = AppSettings::$CLIENT_URL . '/auth/reset-password?email=' . urlencode($this->user->email) . '&token=' . urlencode($this->token);
 		return $this->from('support@alibuya.net')->subject('Password Reset')->markdown('emails.auth.reset_password')->with([
 			'user' => $this->user,
 			'reset_url' => $url

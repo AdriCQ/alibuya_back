@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Mail\Auth\RegisterMail;
 use App\Mail\Auth\ResetPassword;
+use App\Models\AppSettings;
 use App\Models\User\EmailVerificationCode;
 use App\Models\User\User;
 use Carbon\Carbon;
@@ -129,7 +130,8 @@ class AuthController extends Controller
 				}
 			}
 		}
-		return redirect("https://alibuya.net")->with($this->API_RESPONSE);
+
+		return redirect(AppSettings::$CLIENT_URL)->with($this->API_RESPONSE);
 	}
 
 	/**
@@ -150,12 +152,14 @@ class AuthController extends Controller
 			$user = User::query()->where('email', $validator['email']);
 			if ($user->exists()) {
 				$user = $user->first();
-				$token = Factory::create()->password;
+				$token = Factory::create()->password(20, 20);
 				DB::table('password_resets')->insert([
 					'email' => $validator['email'],
-					'token' => Hash::make($token)
+					'token' => Hash::make($token),
+					'created_at' => now()->toDateTimeString()
 				]);
 				Mail::to($user)->send(new ResetPassword($user, $token));
+				$this->API_RESPONSE['STATUS'] = true;
 			} else {
 				$this->API_RESPONSE['ERRORS'] = ['No User'];
 			}
@@ -182,8 +186,8 @@ class AuthController extends Controller
 			$validator = $validator->validate();
 			$passwordResetDB = DB::table('password_resets')->where('email', $validator['email']);
 			if ($passwordResetDB->exists()) {
-				$passwordResetDB = $passwordResetDB->first();
-				if (Hash::check($validator['token'], $passwordResetDB['token'])) {
+				$passwordResetDB = $passwordResetDB->latest()->first();
+				if (Hash::check($validator['token'], $passwordResetDB->token)) {
 					$user = User::query()->where('email', $validator['email']);
 					if ($user->exists()) {
 						$user = $user->first();
