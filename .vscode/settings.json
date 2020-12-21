@@ -18,7 +18,5 @@
       "token": "{{$shared prodToken}}",
       "secretKey": "prodSecret"
     }
-  },
-  "editor.wordWrap": "on",
-  "editor.accessibilitySupport": "off"
+  }
 }
