@@ -65,65 +65,26 @@ class AnnouncementController extends Controller
 		return response()->json($this->API_RESPONSE);
 	}
 
+	/**
+	 * 
+	 */
 	public function loadHomeAnnouncements()
 	{
+		$products = Product::query()->take(12)->get(Product::tableFields());
 		$home = [];
-		// Suggested Products
-		$products = Product::query()->orderBy('rating', 'desc')->with('image:id,title,paths');
-		$home['suggested'] = [
-			'title' => ['es' => 'Lo más comprado', 'en' => 'Lo más comprado'],
-			'products' => $products->take(4)->get(Product::tableFields())
-		];
-
-		$home['special_offer'] = [
-			'title' => ['es' => 'Oferta Especial', 'en' => 'Special Offer'],
-			'product' => $products->first(Product::tableFields())
-		];
-
-		// Home Grids
-		$home['grids'] = [];
-		array_push($home['grids'], [
-			[
-				'title' => ['es' => 'Rebajas de Ropas', 'en' => 'Special Offer'],
-				'products' => $products->take(4)->get(Product::tableFields()),
-				'options' => [
-					'type' => 'beauty.male_clothes'
-				]
-			],
-			[
-				'title' => ['es' => 'Mascotas', 'en' => 'Pets'],
-				'products' => $products->take(4)->get(Product::tableFields()),
-				'options' => [
-					'type' => 'home.pets'
-				]
-			],
-			[
-				'title' => ['es' => 'Deportes', 'en' => 'Sports'],
-				'products' => $products->take(4)->get(Product::tableFields()),
-				'options' => [
-					'type' => 'sport.run'
-				]
-			]
-		]);
-
-		$home['sliders'] = [];
-		array_push($home['sliders'], [
-			[
-				'title' => ['es' => 'Electrodomésticos', 'en' => 'Sports'],
-				'products' => $products->take(12)->get(Product::tableFields())
-			],
-			[
-				'title' => ['es' => 'Salud y Bienestar', 'en' => 'Health'],
-				'products' => $products->take(12)->get(Product::tableFields())
-			],
-			[
-				'title' => ['es' => 'Autos y Piezas', 'en' => 'Sports'],
-				'products' => $products->take(12)->get(Product::tableFields())
-			], [
-				'title' => ['es' => 'Informática y Celulares', 'en' => 'Sports'],
-				'products' => $products->take(12)->get(Product::tableFields())
-			],
-		]);
+		for ($i = 0; $i < 4; $i++) {
+			array_push(
+				$home,
+				['type' => 'slider', 'title' => ['es' => 'Title'], 'products' => $products],
+				['type' => 'row', 'cols' => [
+					['type' => 'offer', 'title' => ['es' => 'Title'], 'products' => $products->toArray()[0]],
+					['type' => 'grid', 'title' => ['es' => 'Title'], 'products' => array_slice($products->toArray(), 0, 4)],
+					['type' => 'offer', 'title' => ['es' => 'Title'], 'products' => $products->toArray()[0]],
+					['type' => 'grid', 'title' => ['es' => 'Title'], 'products' => array_slice($products->toArray(), 0, 4)]
+				]],
+				['type' => 'group', 'title' => ['es' => 'Title'], 'products' => $products],
+			);
+		}
 
 		$this->API_RESPONSE['DATA'] = $home;
 		$this->API_RESPONSE['STATUS'] = true;

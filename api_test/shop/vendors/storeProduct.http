@@ -15,6 +15,16 @@ Content-Disposition: form-data; name="brand"
 brand
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="category"
+
+sport
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="type"
+
+sport.run
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="description"
 
 <h1>Description</h1>
@@ -60,9 +70,16 @@ Content-Disposition: form-data; name="type_id"
 1
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="cant"
+Content-Disposition: form-data; name="available_cant"
 
 5
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="img2.png"
+Content-Type: image/png
+
+< ./img.png
+
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="images[0]"; filename="img2.png"

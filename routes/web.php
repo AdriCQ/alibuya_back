@@ -18,8 +18,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	return redirect("https://alibuya.net");
+	return redirect(\App\Models\AppSettings::$CLIENT_URL);
 });
+
+Route::get('/login', function () {
+	return redirect(\App\Models\AppSettings::$CLIENT_URL);
+})->name('login');
 
 
 Route::prefix('/email-test')->group(function () {

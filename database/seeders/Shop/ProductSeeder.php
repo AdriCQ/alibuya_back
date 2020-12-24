@@ -22,6 +22,11 @@ class ProductSeeder extends Seeder
 		$this->seedProducts(10, 10);
 	}
 
+	private function seedRealProducts()
+	{
+		$product = [];
+	}
+
 	/**
 	 * seedProducts
 	 *
