@@ -17,6 +17,7 @@ class CreateShopBuyTable extends Migration
 			$table->id();
 			$table->foreignId('user_id')->constrained('users');
 			$table->unsignedDecimal('price', 8, 2);
+			$table->string('status', 16)->default('created');
 			$table->timestamps();
 		});
 	}

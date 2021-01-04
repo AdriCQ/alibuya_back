@@ -20,6 +20,8 @@ class Buy extends Model
 	protected $table = 'shop_buy';
 	protected $guarded = ['id'];
 
+	public static $STATUS =  ["created", "requested", "waiting", "ready", "canceled"];
+
 	/**
 	 * 
 	 */

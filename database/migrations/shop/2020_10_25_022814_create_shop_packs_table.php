@@ -18,8 +18,8 @@ class CreateShopPacksTable extends Migration
 			$table->foreignId('user_id')->constrained('users');
 			$table->string('delivery_method');
 			// JSON
-			$table->longText('persons_info');
-			$table->boolean('buy')->default(false);
+			$table->json('destinataries');
+			$table->string('status', 16)->default('created');
 			$table->timestamps();
 		});
 	}

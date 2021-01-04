@@ -24,6 +24,8 @@ class Pack extends Model
 	protected $guarded = ['id'];
 	protected $casts = ['persons_info' => 'array'];
 
+	public static $STATUS =  ["created", "requested", "waiting", "ready", "canceled"];
+
 	/**
 	 * 
 	 */
