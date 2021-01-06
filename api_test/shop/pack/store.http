@@ -6,7 +6,7 @@ Authorization: {{ token }}
 
 {
   "delivery_method": "delivery_method",
-  "persons_info":[
+  "destinataries":[
     {
       "first_name": "first_name",
       "last_name": "last_name",
@@ -16,15 +16,24 @@ Authorization: {{ token }}
   "products":[
     {
       "id":1,
-      "cant":5
+      "cart_cant":5,
+      "options_details":{
+        "color":"red"
+      }
     },
     {
       "id":2,
-      "cant":5
+      "cart_cant":5,
+      "options_details":{
+        "color":"red"
+      }
     },
     {
       "id":3,
-      "cant":5
+      "cart_cant":5,
+      "options_details":{
+        "color":"red"
+      }
     }
   ]
 }

@@ -54,7 +54,7 @@ class Pack extends Model
 
 	public function products()
 	{
-		return $this->belongsToMany(Product::class, 'shop_pack_products');
+		return $this->belongsToMany(Product::class, 'shop_pack_products')->withPivot(['cart_cant', 'options_details']);
 	}
 
 	public function user()
