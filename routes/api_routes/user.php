@@ -18,5 +18,11 @@ Route::namespace('App\Http\Controllers\User')->group(function () {
 
   Route::middleware('auth:sanctum')->group(function () {
     Route::get('/roles', 'UserController@getRoles');
+    // Contacts
+    Route::prefix('/contact')->group(function () {
+      Route::get('/', 'UserController@getContactsByAuth');
+      Route::post('/', 'UserController@addContact');
+      Route::get('/by-id', 'UserController@getContacts');
+    });
   });
 });

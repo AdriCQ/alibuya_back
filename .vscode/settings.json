@@ -3,7 +3,7 @@
     "$shared": {
       "version": "v1",
       "prodToken": "Bearer 10|ruAge3xIz13NdRN3hIN4shP36OoHV9hPYw5BLLHWPYLt0KE7UnV106oReFAujZBbB2MLzQ9ZgbPObhDK",
-      "nonProdToken": "Bearer 1|JXJ6nZ9q4RaIYgk6hPzodUrUwdHvubeQgqFvvfWL"
+      "nonProdToken": "Bearer 1|kWQWGDTcHvbpqWw5oFi54Rl4k2Ap5gnjmePGhoYg"
     },
     "local": {
       "version": "v2",

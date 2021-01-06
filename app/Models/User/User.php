@@ -66,4 +66,9 @@ class User extends Authenticatable
 	{
 		return $this->hasOne(EmailVerificationCode::class, 'user_id', 'id');
 	}
+
+	public function contacts()
+	{
+		return $this->hasMany(Contacts::class, 'user_id', 'id');
+	}
 }
