@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Shop\ProductStoreRequest;
 use App\Models\Shop\Image;
-use App\Models\Shop\Pivot\VendorProduct;
 use App\Models\Shop\Product;
+use App\Models\Shop\ProductType;
 use App\Models\Shop\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -34,9 +33,12 @@ class ProductController extends Controller
 			'options.colors.*' => ['nullable', 'string'],
 			'vendor_id' => ['required', 'integer', 'min:1'],
 			'type_id' => ['required', 'integer', 'min:1'],
-			'cant' => ['required', 'integer'],
-			'images' => ['required', 'array'],
-			'images.*' => ['required', 'image']
+			'available_cant' => ['required', 'integer'],
+			'image' => ['required', 'image'],
+			'category' => ['required', 'string'],
+			'type' => ['required', 'string']
+			// 'images' => ['required', 'array'],
+			// 'images.*' => ['required', 'image']
 		]);
 		// return response()->json($request);
 		if ($validator->fails()) {
@@ -44,54 +46,71 @@ class ProductController extends Controller
 		} else {
 			$validator = $validator->validate();
 			$user = auth()->user();
+			// Get Vendor
 			$vendor = Vendor::query()->where([['id', $validator['vendor_id']], ['user_id', $user->id]])->first();
-			//? Check if user has permissions
-			if ($vendor || $user->hasRole('Admin')) {
-				// Save product
-				$productModel = new Product();
-				$productModel->title = $validator['title'];
-				if (isset($validator['brand']))
-					$productModel->brand = $validator['brand'];
-				$productModel->description = $validator['description'];
-				$productModel->price = $validator['price'];
-				if (isset($validator['weight']))
-					$productModel->weight = $validator['weight'];
-				$productModel->tags = $validator['tags'];
-				if (isset($validator['options'])) {
-					$options = [];
-					if (isset($validator['options']['colors']))
-						$options['colors'] = $validator['options']['colors'];
-					$productModel->options = $options;
-				}
-				$productModel->vendor_id = $validator['vendor_id'];
-				$productModel->type_id = $validator['type_id'];
-				$productModel->cant = $validator['cant'];
-				//? Check if save roduct
-				if ($productModel->save()) {
-					// Start Save images
-					$imageFiles = $validator['images'];
-					$imageModels = [];
-					$counter = 0;
-					foreach ($imageFiles as $imageFile) {
-						$imageModels[$counter] = new Image();
-						$imageModels[$counter]->uploadImage($imageFile, 'product');
-						$imageModels[$counter]->tags = $validator['tags'];
-						$imageModels[$counter]->title = $validator['title'] . '-image';
-						$counter++;
+
+			// Get category
+			$type = ProductType::query()->where('tag', $validator['type']);
+			if ($type->exists()) {
+				$type = $type->first();
+				$category = $type->category;
+
+				//? Check if user has permissions
+				if ($vendor || $user->hasRole('Admin')) {
+					// Save product
+					$productModel = new Product();
+					$productModel->type_id = $type->id;
+					$productModel->category_id = $category->id;
+					$productModel->title = $validator['title'];
+					if (isset($validator['brand']))
+						$productModel->brand = $validator['brand'];
+					$productModel->description = $validator['description'];
+					$productModel->price = $validator['price'];
+					if (isset($validator['weight']))
+						$productModel->weight = $validator['weight'];
+					$productModel->tags = $validator['tags'];
+					if (isset($validator['options'])) {
+						$options = [];
+						if (isset($validator['options']['colors']))
+							$options['colors'] = $validator['options']['colors'];
+						$productModel->options = $options;
 					}
-					// return response()->json($imageModels);
-					if ($productModel->images()->saveMany($imageModels)) {
+					$productModel->vendor_id = $validator['vendor_id'];
+					$productModel->type_id = $validator['type_id'];
+					$productModel->available_cant = $validator['available_cant'];
+
+					$imageCoverFile = $validator['image'];
+					$imageCoverModel = new Image();
+					$imageCoverModel->uploadImage($imageCoverFile, 'product');
+					$imageCoverModel->tags = $validator['tags'];
+					$imageCoverModel->title = $validator['title'] . '-cover';
+					$imageCoverModel->save();
+
+					$productModel->img_id = $imageCoverModel->id;
+					//? Check if save roduct
+					if ($productModel->save()) {
+						// Start Save images
+
+						// $imageFiles = $validator['images'];
+						// $imageModels = [];
+						// $counter = 0;
+						// foreach ($imageFiles as $imageFile) {
+						// 	$imageModels[$counter] = new Image();
+						// 	$imageModels[$counter]->uploadImage($imageFile, 'product');
+						// 	$imageModels[$counter]->tags = $validator['tags'];
+						// 	$imageModels[$counter]->title = $validator['title'] . '-image';
+						// 	$counter++;
+						// }
+						// return response()->json($imageModels);
+						// if ($m) {
 						$this->API_RESPONSE['STATUS'] = true;
-						$productModel->images;
+						// $productModel->images;
 						$this->API_RESPONSE['DATA'] = $productModel;
 					} else {
-						$this->API_RESPONSE['ERRORS'] = $productModel->images()->errors;
+						$this->API_RESPONSE['ERRORS'] = $productModel->errors;
 					}
-					// End Save images
-				}
-				//! Catch save roduct Error
-				else {
-					$this->API_RESPONSE['ERRORS'] = $productModel->errors;
+				} else {
+					$this->API_RESPONSE['ERRORS'] = ['No type found'];
 				}
 			}
 			//! Catch user has permissions

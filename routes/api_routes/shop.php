@@ -31,6 +31,7 @@ Route::namespace('App\Http\Controllers\Shop')->group(function () {
   Route::prefix('/pack')->middleware('auth:sanctum')->group(function () {
     Route::get('/', 'PackController@userNoBought');
     Route::post('/', 'PackController@store');
+    Route::get('/products', 'PackController@getProductsById');
   });
 
   /**

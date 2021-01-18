@@ -17,6 +17,7 @@ class CreateShopBuyPacksTable extends Migration
 			$table->id();
 			$table->foreignId('buy_id')->constrained('shop_buy');
 			$table->foreignId('pack_id')->constrained('shop_packs');
+			// $table->string('status', 16)->default('created');
 			$table->unsignedSmallInteger('cant')->default(1);
 		});
 	}

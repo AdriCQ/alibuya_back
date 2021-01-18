@@ -18,8 +18,9 @@ class CreateShopPackProductsTable extends Migration
 			$table->foreignId('pack_id')->constrained('shop_packs');
 			$table->foreignId('product_id')->constrained('shop_products');
 			// JSON
-			$table->longText('shop_details')->nullable();
-			$table->unsignedSmallInteger('cant')->default(1);
+			$table->json('options_details')->nullable();
+			$table->unsignedSmallInteger('cart_cant')->default(1);
+			$table->string('status', 16)->default('created');
 		});
 	}
 

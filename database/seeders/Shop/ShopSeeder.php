@@ -19,10 +19,6 @@ class ShopSeeder extends Seeder
 	 */
 	public function run()
 	{
-		$this->call([
-			CategoriesSeeder::class,
-		]);
-
 		Image::query()->insert([
 			'title' => 'Alibuya',
 			'tags' => \json_encode(['alibuya']),
@@ -34,9 +30,15 @@ class ShopSeeder extends Seeder
 				'xl' => '/images/alibuya-xl.png',
 			])
 		]);
+		$this->call([
+			CategoriesSeeder::class,
+		]);
+
+
 		$this->seedVendors();
 		$this->call([
 			ProductSeeder::class,
+			// BuySeeder::class,
 			// AnnouncementSeeder::class
 		]);
 	}

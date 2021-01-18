@@ -15,6 +15,8 @@ class PackProduct extends Model
 		'shop_details' => 'array'
 	];
 
+	public static $STATUS =  ["created", "requested", "waiting", "ready", "canceled"];
+
 
 	/**
 	 * -----------------------------------------

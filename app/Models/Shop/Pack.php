@@ -24,6 +24,8 @@ class Pack extends Model
 	protected $guarded = ['id'];
 	protected $casts = ['persons_info' => 'array'];
 
+	public static $STATUS =  ["created", "requested", "waiting", "ready", "canceled"];
+
 	/**
 	 * 
 	 */
@@ -52,7 +54,7 @@ class Pack extends Model
 
 	public function products()
 	{
-		return $this->belongsToMany(Product::class, 'shop_pack_products');
+		return $this->belongsToMany(Product::class, 'shop_pack_products')->withPivot(['cart_cant', 'options_details']);
 	}
 
 	public function user()

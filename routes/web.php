@@ -1,8 +1,9 @@
 <?php
 
-use App\Mail\OrderShipped;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Support\Facades\Mail;
+use App\Mail\Auth\RegisterMail;
+use App\Mail\Auth\ResetPassword;
+use App\Models\User\User;
+use Faker\Factory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	// return view('welcome');
-	return view('layouts.app');
+	return redirect(\App\Models\AppSettings::$CLIENT_URL);
+});
+
+Route::get('/login', function () {
+	return redirect(\App\Models\AppSettings::$CLIENT_URL);
+})->name('login');
+
+
+Route::prefix('/email-test')->group(function () {
+	Route::get('/email-verify', function () {
+		$faker = Factory::create();
+		return (new RegisterMail(User::query()->first(), $faker->url));
+	});
+
+	Route::get('/password-reset', function () {
+		$faker = Factory::create();
+		return (new ResetPassword(User::query()->first(), $faker->password));
+	});
 });

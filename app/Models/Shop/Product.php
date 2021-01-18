@@ -79,4 +79,9 @@ class Product extends Model
 	{
 		return $this->belongsToMany(Announcement::class, 'shop_announcement_products');
 	}
+
+	public function coloImages()
+	{
+		return $this->belongsToMany(Image::class, 'shop_product_option_color_images');
+	}
 }
